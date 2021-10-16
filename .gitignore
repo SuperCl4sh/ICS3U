@@ -28,3 +28,8 @@ hs_err_pid*
 
 # Tests
 *test.java
+
+#Text
+*.txt
+*.in
+*.out
