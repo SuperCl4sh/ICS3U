@@ -16,24 +16,22 @@ public class ics3u209challenge {
 			negative = "-";
 		}
 		int gcf = A;
-		if (B != 0) gcf = gcd(gcf, Math.abs(B));
-		if (C != 0) gcf = gcd(gcf, Math.abs(C));
+		gcf = gcd(gcf, Math.abs(B));
+		gcf = gcd(gcf, Math.abs(C));
 		A /= gcf;
 		B /= gcf;
 		C /= gcf;
-		
 		if (C == 0) {
-			System.out.println(negative + ((gcf == 1) ? "" : gcf) + "x(" + ((A == 1) ? "" : A) + "x + " + B + ")");
+			System.out.println(negative + ((gcf == 1) ? "" : gcf) + "x(" + ((A == 1) ? "" : A) + "x" + ((B < 0) ? "-" : "+") + Math.abs(B) + ")");
 			return;
 		}
-
 		//(ax + b)(cx + d)
-		final int STOP = 50;
+		final int STOP = 30;
 		int a = -1, b = -1, c = -1, d = -1;
 		boolean found = false;
 		for (a = 1; a <= STOP; a++) {
 			for (b = -STOP; b <= STOP; b++) {
-				for (c = -STOP; c <= STOP; c++) {
+				for (c = 1; c <= STOP; c++) {
 					for (d = -STOP; d <= STOP; d++) {
 						if (a * c == A && b * c + d * a == B && b * d == C) {
 							found = true;
@@ -46,12 +44,13 @@ public class ics3u209challenge {
 			}
 			if (found) break;
 		}
-		String ans = negative + ((gcf == 1) ? "" : Integer.toString(gcf));
-		System.out.println(ans);
-		
+		String front = negative + ((gcf == 1) ? "" : Integer.toString(gcf)), ans = "";
+		ans += "(" + ((a == 1) ? "" : a ) + "x" + ((b < 0) ? "-" : "+") + Math.abs(b) + ")";
+		if (-b * 1.0 / a < -d * 1.0 / c) ans += "(" + ((c == 1) ? "" : c ) + "x" + ((d < 0) ? "-" : "+") + Math.abs(d) + ")";
+		else ans = "(" + ((c == 1) ? "" : c ) + "x" + ((d < 0) ? "-" : "+") + Math.abs(d) + ")" + ans;
+		System.out.println(front + ans);
 	}
 	public static int gcd (int A, int B) {
-		if (A < B) return gcd(B, A);
 		return (B == 0) ? A : gcd(B, A % B);
 	}
 }
