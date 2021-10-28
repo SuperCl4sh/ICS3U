@@ -16,7 +16,7 @@ public class ics3ucompassu2assc {
 		for (int i = 46; i < 135; i++) {
 			firstDir[i] = "E";
 			secondDir[i] = (i <= 90) ? "N" : "S";
-			bearings[i] = Math.abs(90 - i) % 45;
+			bearings[i] = Math.abs(90 - i);
 		}
 		for (int i = 135; i <= 225; i++) {
 			firstDir[i] = "S";
@@ -34,11 +34,7 @@ public class ics3ucompassu2assc {
 			bearings[i] = (360 - i);
 		}
 		for (int i = 0; i < 360; i++) {
-			compasses[i] = "" + firstDir[i] + ((bearings[i] == 0) ? "" : bearings[i]) + secondDir[i];
-			if (i % 90 == 0) {
-				compasses[i] = "" + compasses[i].charAt(0);
-				continue;
-			}
+			compasses[i] = "" + firstDir[i] + bearings[i] + secondDir[i];
 		}
 		String first = sc.nextLine();
 		int bearing = sc.nextInt(); 
