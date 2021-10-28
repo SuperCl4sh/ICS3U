@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class ics3ucompassu2ass0 {
+public class ics3ucompassu2assb {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		String firstDir[] = new String [370];
