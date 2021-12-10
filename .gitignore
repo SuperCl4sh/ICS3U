@@ -26,9 +26,6 @@ hs_err_pid*
 *~
 *.swp
 
-# Tests
-*test.java
-
 #Text
 *.txt
 *.in
