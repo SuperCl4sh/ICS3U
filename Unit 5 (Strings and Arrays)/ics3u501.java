@@ -14,6 +14,8 @@ public class ics3u501 {
 		ar[9] = tmp;
 		for (int i = 0; i < 10; i++) ar[i] = Math.abs(ar[i]);
 		int sampleSum = 0; for (int i = 0; i < 10; i++) sampleSum += ar[i];
+		System.out.println(sampleSum);
 		for (int i = 0; i < 10; i += 2) System.out.print(ar[i] + " ");
+		System.out.println();
 	}
 }
