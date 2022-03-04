@@ -7,9 +7,8 @@ import javax.swing.*;
 public class GUI {
     private JFrame frame;
     private JPanel panel;
-    final private Dimension SCREENSIZE = Toolkit.getDefaultToolkit().getScreenSize();
-    final private int WIDTH = (int) SCREENSIZE.getWidth();
-    final private int HEIGHT = (int) SCREENSIZE.getHeight();
+    private int WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
+    private int HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
 
     public GUI() {
         initializeStartingScreen();
@@ -24,32 +23,53 @@ public class GUI {
     }
 
     void initializeStartingScreen() {
+        panel = new JPanel();
         frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Wordle");
-        panel = new JPanel(); 
-        //panel.setLayout(new GridLayout(3, 0));
-        String buttons[] = {"Start", "Rules", "Exit"};
-        for (int i = 0, x = HEIGHT / 2, y = (int)(WIDTH / 3.0 * 2); i < buttons.length && x < HEIGHT && y < WIDTH; y += 250, i++) {
-            JButton button = new JButton(buttons[i]);
-            button.setBounds(x, y, 500, 500);
-            button.setFont(new Font("Arial", Font.PLAIN, 50));
-            button.setBackground(Color.WHITE);
-            button.setForeground(Color.BLACK);
-            button.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            button.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent e) {
-                    frame.dispose();
-                }
-            });
-            panel.add(button);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        // align component vertically
+        panel.setAlignmentY(Component.TOP_ALIGNMENT);
+        String buttonText[] = {"Start", "Rules"};
+        JButton jButtons[] = new JButton[buttonText.length];
+        panel.add(Box.createRigidArea(new Dimension(WIDTH / 3, HEIGHT / 6)));
+        for (int i = 0; i < buttonText.length; i++) {
+            JButton button = new JButton(buttonText[i]);
+            button.setFont(new Font("Montserrat", Font.PLAIN, 50));
+            button.setAlignmentX(Component.CENTER_ALIGNMENT);
+            button.setAlignmentY(Component.CENTER_ALIGNMENT);
+            button.setMaximumSize(new Dimension(WIDTH / 3, HEIGHT / 5));
+            button.setMinimumSize(new Dimension(WIDTH / 3, HEIGHT / 5));
+            jButtons[i] = button;
         }
-        frame.add(panel, BorderLayout.CENTER);
+        // create actionListener for each button
+        jButtons[0].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                frame.dispose();
+                initializeGameScreen();
+            }
+        });
+
+        jButtons[1].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                frame.dispose();
+                initializeRulesScreen();
+            }
+        });
+
+        for (int i = 0; i < jButtons.length; i++) {
+            panel.add(jButtons[i]);
+            panel.add(Box.createRigidArea(new Dimension(10, 10)));
+        }
+
+        frame.add(panel);
         frame.pack();
-        frame.setSize(SCREENSIZE);
+        frame.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
         frame.setVisible(true);
-    }   
+    }
     public static void main(String[] args) {
         new GUI();
         return;
