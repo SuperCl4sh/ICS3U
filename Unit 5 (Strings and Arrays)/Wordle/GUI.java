@@ -17,16 +17,17 @@ public class GUI {
     private String[][] colorGrid = new String[6][5];
     private String[][] stringGrid = new String[6][5];
     private String ANSWER = "";
-    private String[] WORDS;
+    private String[] WORDLE_WORDS, ENGLISH_WORDS;
     private int wins = 0, losses = 0;
 
-    public GUI(String[] words) {
-        WORDS = words;
+    public GUI(String[] wordle, String[] english ) {
+        WORDLE_WORDS = wordle;
+        ENGLISH_WORDS = english;
         initializeStartingScreen();
     }
 
     String getRandomWord() {
-        return WORDS[(int) (Math.random() * WORDS.length)];
+        return WORDLE_WORDS[(int) (Math.random() * WORDLE_WORDS.length)];
     }
 
     void doWin() {
@@ -47,7 +48,7 @@ public class GUI {
     }
 
     Boolean invalidWord(String word) {
-        Boolean valid = false; for (int i = 0; i < WORDS.length; i++) if (WORDS[i].equals(word)) valid = true;
+        Boolean valid = false; for (int i = 0; i < ENGLISH_WORDS.length; i++) if (ENGLISH_WORDS[i].equals(word)) valid = true;
         return !valid;
     }
 
@@ -66,7 +67,6 @@ public class GUI {
     }
 
     void doDelete(int ch) {
-        System.out.println(ch);
         if (ch == 8 || ch == 127) {
             if (col >= 0) {
                 stringGrid[row][col] = "";
@@ -113,7 +113,7 @@ public class GUI {
                 initializeStartingScreen();
                 return;
             }
-            else if (row == 5) {
+            else if (row == 6) {
                 doLose();
                 resetPanel();
                 frame.dispose();
@@ -234,9 +234,12 @@ public class GUI {
         
         panel = new JPanel();
         frame = new JFrame("Wordle");
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        frame.setUndecorated(true);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         panel.setAlignmentY(Component.TOP_ALIGNMENT);
+        
 
         String buttonText[] = {"Start", "Rules", "Stats", "Exit"};
         JButton jButtons[] = new JButton[buttonText.length];
