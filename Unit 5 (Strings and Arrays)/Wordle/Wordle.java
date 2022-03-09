@@ -1,12 +1,6 @@
 package Wordle;
 import java.io.*;
 import java.util.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
-import javax.swing.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import Wordle.GUI;
 
 public class Wordle {
 	private final static int MAX_NUMBER_WORDS = 2315;
