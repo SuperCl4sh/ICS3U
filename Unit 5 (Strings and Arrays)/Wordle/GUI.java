@@ -148,9 +148,13 @@ public class GUI {
 
     void setGrid() {
         resetPanel();
+        panel.add(Box.createRigidArea(new Dimension(0, HEIGHT / 7)));
 
         for (int i = 0; i < grid.length; i++) {
             grid[i] = new JPanel();
+            grid[i].setMaximumSize(new Dimension(750, 110));
+            grid[i].setMinimumSize(new Dimension(750, 110));
+            grid[i].setPreferredSize(new Dimension(750, 110));
             for (int j = 0; j < 5; j++) {
                 JLabel label = new JLabel(stringGrid[i][j], SwingConstants.CENTER);
                 label.setFont(new Font("Arial", Font.BOLD, 50));
@@ -162,7 +166,7 @@ public class GUI {
                 label.setMaximumSize(new Dimension(100, 100));
                 label.setPreferredSize(new Dimension(100, 100));
                 label.setBorder(BorderFactory.createCompoundBorder(
-                    BorderFactory.createEmptyBorder(1, 1, 1, 1),
+                    BorderFactory.createEmptyBorder(0, 0, 0, 0),
                     BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK)));
                 grid[i].add(label);
             }
@@ -173,6 +177,7 @@ public class GUI {
         for (int i = 0; i < grid.length; i++) panel.add(grid[i]);
 
         panel.repaint();
+        frame.requestFocus();
         return;
     }
 
